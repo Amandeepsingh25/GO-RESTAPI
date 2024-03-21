@@ -28,3 +28,13 @@ jobs:
 
     - name: Build
       run: go build -o myapp ./main.go
+
+    - name: Deploy to GCP VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          scp -i /home/amandeep/.ssh/id_rsa ${{ secrets.SSH_PRIVATE_KEY }} myapp ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/amandeep/Deployement
+          ssh -i /home/amandeep/.ssh/id_rsa ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "sudo systemctl restart myapp.service"
