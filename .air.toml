@@ -1,0 +1,5 @@
+root = "."  # The root directory of your Go project
+tmp_dir = "tmp"  # Temporary directory used by air
+build_delay = 1000  # Delay in milliseconds before building after a file change
+binary = "./main.go"  # Path to your Go executable
+log_output = true  # Enable/disable logging
