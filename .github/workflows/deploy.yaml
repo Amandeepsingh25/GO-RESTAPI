@@ -24,10 +24,10 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        env:
-          GODEBUG: netdns=go
-          GODEBUG_NETDNS_RESOLVCONF: /etc/resolv.conf
-          GODEBUG_NETDNS_RESOLV: 8.8.8.8  # Use Google DNS server
-        script: |
-          scp -i /home/amandeep/.ssh/id_rsa ${{ github.workspace }}/myapp ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/amandeep/Deployment
-          ssh -i /home/amandeep/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "sudo systemctl restart myapp.service"
+      env:
+        GODEBUG: netdns=go
+        GODEBUG_NETDNS_RESOLVCONF: /etc/resolv.conf
+        GODEBUG_NETDNS_RESOLV: 8.8.8.8  # Use Google DNS server
+      script: |
+        scp -i /home/amandeep/.ssh/id_rsa ${{ github.workspace }}/myapp ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/amandeep/Deployment
+        ssh -i /home/amandeep/.ssh/id_rsa ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "sudo systemctl restart myapp.service"
